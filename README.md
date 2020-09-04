@@ -4,6 +4,8 @@ Python SDK for accessing Microsoft Dynamics 365 Business Central APIs.
 
 ## Installation
 
+The project is under active development, so all the information might not be accurate.
+
 This project requires [Python 3+](https://www.python.org/downloads/) and [Requests](https://pypi.org/project/requests/) library (pip install requests).
 
 1. Download this project and use it (copy it in your project, etc).
@@ -27,6 +29,8 @@ connection = Dynamics(
     environment='sandbox / production',
     company_id='company id'
 )
+
+vendors = connection.vendors.get()
 ```
 
 
