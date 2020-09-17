@@ -6,6 +6,8 @@ Python SDK for accessing Microsoft Dynamics 365 Business Central APIs.
 
 The project is under active development, so all the information might not be accurate.
 
+The sdk does not support OAuth 2.0 in version 0.1.0, this will be supported in later versions.
+
 This project requires [Python 3+](https://www.python.org/downloads/) and [Requests](https://pypi.org/project/requests/) library (pip install requests).
 
 1. Download this project and use it (copy it in your project, etc).
