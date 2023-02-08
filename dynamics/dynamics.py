@@ -29,6 +29,7 @@ class Dynamics:
         self.purchase_invoices = PurchaseInvoices()
         self.purchase_invoice_line_items = PurchaseInvoiceLineItems()
         self.attachments = Attachments()
+        self.ItemsByLocation = ItemsByLocation()
 
         # get the access token
         self.update_access_token()
