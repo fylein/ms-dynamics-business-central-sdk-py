@@ -45,6 +45,7 @@ class Dynamics:
         self.purchase_invoices.change_access_token(token)
         self.purchase_invoice_line_items.change_access_token(token)
         self.attachments.change_access_token(token)
+        self.ItemsByLocation.change_access_token(token)
 
     def set_server_url(self):
         """Set the Base URL in all API objects."""
@@ -56,6 +57,7 @@ class Dynamics:
         self.purchase_invoices.set_server_url(base_url)
         self.purchase_invoice_line_items.set_server_url(base_url)
         self.attachments.set_server_url(base_url)
+        self.ItemsByLocation.set_server_url(base_url)
 
     def __get_token(self):
         """Get the access token using a HTTP post.
