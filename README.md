@@ -4,9 +4,7 @@ Python SDK for accessing Microsoft Dynamics 365 Business Central APIs.
 
 ## Installation
 
-The project is under active development, so all the information might not be accurate.
-
-The sdk does not support OAuth 2.0 in version 0.1.0, this will be supported in later versions.
+The project is under active development, so contracts can change.
 
 This project requires [Python 3+](https://www.python.org/downloads/) and [Requests](https://pypi.org/project/requests/) library (pip install requests).
 
@@ -22,14 +20,21 @@ To use this SDK you'll need these Dynamics credentials
 This SDK is very easy to use.
 1. First you'll need to create a connection using the main class Dynamics.
 ```python
-from dynamics import Dynamics
+dynamics = Dynamics(
+    client_id='<secret>',
+    client_secret='<secret>',
+    environment='sandbox',
+    refresh_token='<refresh_token>'
+)
 
-connection = Dynamics(
-    user_name='USER NAME',
-    web_api_key='WEB API KEY',
-    tenant_domain='example.com',
-    environment='sandbox / production',
-    company_id='company id'
+company_id = dynamics.companies.get()[0]['id']
+
+dynamics = Dynamics(
+    client_id='<secret>',
+    client_secret='<secret>',
+    environment='sandbox',
+    refresh_token='<refresh_token>',
+    company_id=company_id
 )
 
 vendors = connection.vendors.get()
