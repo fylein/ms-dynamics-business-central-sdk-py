@@ -9,7 +9,7 @@ class PurchaseInvoices(ApiBase):
     GET_PURCHASE_INVOICES = '/purchaseInvoices'
     POST_PURCHASE_INVOICE = '/purchaseInvoices'
 
-    def get(self, **kwargs):
+    def get_all(self, **kwargs):
         """
         Get all purchase invoices
         :return: returns all companies

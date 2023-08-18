@@ -27,7 +27,7 @@ dynamics = Dynamics(
     refresh_token='<refresh_token>'
 )
 
-company_id = dynamics.companies.get()[0]['id']
+company_id = dynamics.companies.get_all()[0]['id']
 
 dynamics = Dynamics(
     client_id='<secret>',
@@ -37,7 +37,7 @@ dynamics = Dynamics(
     company_id=company_id
 )
 
-vendors = connection.vendors.get()
+vendors = connection.vendors.get_all()
 ```
 
 

@@ -7,7 +7,7 @@ class PurchaseInvoiceLineItems(ApiBase):
     GET_PURCHASE_INVOICE_LINEITEMS = '/purchaseInvoices({0})/purchaseInvoiceLines'
     POST_PURCHASE_INVOICE_LINEITEM = '/purchaseInvoices({0})/purchaseInvoiceLines'
 
-    def get(self, purchase_invoice_id: str, **kwargs):
+    def get_all(self, purchase_invoice_id: str, **kwargs):
         """
         Get all purchase invoice line items
         :return: returns all companies

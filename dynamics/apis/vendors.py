@@ -7,7 +7,7 @@ class Vendors(ApiBase):
     GET_VENDORS = '/vendors'
     POST_VENDOR = '/vendors'
 
-    def get(self, **kwargs):
+    def get_all(self, **kwargs):
         """
         Get all vendors
         :return: returns all companies

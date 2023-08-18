@@ -7,7 +7,7 @@ class Accounts(ApiBase):
     GET_ACCOUNTS = '/accounts'
     POST_ACCOUNT = '/accounts'
 
-    def get(self, **kwargs):
+    def get_all(self, **kwargs):
         """
         Get all accounts
         :return: returns all companies

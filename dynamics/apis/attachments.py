@@ -10,7 +10,7 @@ class Attachments(ApiBase):
     POST_ATTACHMENT = '/attachments'
     UPLOAD_ATTACHMENT = '/attachments(parentId={0},id={1})/content'
 
-    def get(self, parent_id: str):
+    def get_all(self, parent_id: str):
         """
         Get all attachments
         :return: returns all companies

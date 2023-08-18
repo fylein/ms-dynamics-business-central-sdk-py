@@ -6,7 +6,7 @@ class Companies(ApiBase):
 
     GET_COMPANIES = '/companies'
 
-    def get(self, **kwargs):
+    def get_all(self, **kwargs):
         """
         Get all companies
         :return: returns all companies
