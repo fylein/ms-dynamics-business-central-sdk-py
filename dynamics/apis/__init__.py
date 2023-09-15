@@ -2,6 +2,8 @@ from .companies import Companies
 from .vendors import Vendors
 from .accounts import Accounts
 from .invoices import PurchaseInvoices
+from .journal import Journals
+from .journal_line_items import JournalLineItem
 from .invoice_line_items import PurchaseInvoiceLineItems
 from .attachments import Attachments
 
@@ -10,6 +12,8 @@ __all__ = [
     'Vendors',
     'Accounts',
     'PurchaseInvoices',
+    'Journals',
+    'JournalLineItem',
     'PurchaseInvoiceLineItems',
     'Attachments'
 ]

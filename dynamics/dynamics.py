@@ -38,6 +38,8 @@ class Dynamics:
         self.vendors = Vendors()
         self.accounts = Accounts()
         self.purchase_invoices = PurchaseInvoices()
+        self.journals = Journals()
+        self.journal_line_items = JournalLineItem()
         self.purchase_invoice_line_items = PurchaseInvoiceLineItems()
         self.attachments = Attachments()
 
@@ -58,6 +60,8 @@ class Dynamics:
             self.vendors,
             self.accounts,
             self.purchase_invoices,
+            self.journals,
+            self.journal_line_items,
             self.purchase_invoice_line_items,
             self.attachments
         ]
@@ -80,6 +84,8 @@ class Dynamics:
             self.vendors,
             self.accounts,
             self.purchase_invoices,
+            self.journals,
+            self.journal_line_items,
             self.purchase_invoice_line_items,
             self.attachments
         ]
