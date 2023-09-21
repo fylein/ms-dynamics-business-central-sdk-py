@@ -1,4 +1,12 @@
-from dynamics.exceptions.dynamics_exceptions import *
+from dynamics.exceptions.dynamics_exceptions import (
+    DynamicsError,
+    ExpiredTokenError,
+    InvalidTokenError,
+    NoPrivilegeError,
+    WrongParamsError,
+    NotFoundItemError,
+    InternalServerError
+)
 import requests
 import json
 
