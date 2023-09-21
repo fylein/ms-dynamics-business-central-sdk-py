@@ -1,4 +1,4 @@
-from dynamics.exceptions import *
+from dynamics.exceptions.dynamics_exceptions import *
 import requests
 import json
 
