@@ -5,15 +5,15 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='ms-dynamics-business-central-sdk',
-    version='0.1.0',
+    version='1.0.0',
     author='Shwetabh Kumar',
     author_email='shwetabh.kumar@fyle.in',
     description='Python SDK for accessing Dynamics APIs',
     license='MIT',
     long_description=long_description,
     long_description_content_type='text/markdown',  
-    keywords=['dynamics', 'fyle', 'api', 'python', 'sdk'],
-    url='https://github.com/fylein/dynamics-sdk-py',
+    keywords=['dynamics', 'business-central', 'ms', 'ms-dynamics-business-central', 'fyle', 'api', 'python', 'sdk'],
+    url='https://github.com/fylein/ms-dynamics-business-central-sdk-py',
     packages=setuptools.find_packages(),
     install_requires=['requests'],
     classifiers=[
