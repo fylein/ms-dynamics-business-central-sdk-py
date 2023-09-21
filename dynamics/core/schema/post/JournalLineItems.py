@@ -12,5 +12,3 @@ class JournalLineItemsPayload:
     'comment': str
     'taxCode': str
     'balancingAccountNumber': str
-
-

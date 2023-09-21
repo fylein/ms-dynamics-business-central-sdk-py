@@ -3,6 +3,6 @@ from datetime import date
 
 @dataclass
 class JounalPayload:
-  'code': str
-  'displayName': str
-  'templateDisplayName': str
+    'code': str
+    'displayName': str
+    'templateDisplayName': str
