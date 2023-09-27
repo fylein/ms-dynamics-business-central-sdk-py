@@ -6,6 +6,7 @@ from .journal import Journals
 from .journal_line_items import JournalLineItem
 from .invoice_line_items import PurchaseInvoiceLineItems
 from .attachments import Attachments
+from .employees import Employees
 
 __all__ = [
     'Companies',
@@ -15,5 +16,6 @@ __all__ = [
     'Journals',
     'JournalLineItem',
     'PurchaseInvoiceLineItems',
-    'Attachments'
+    'Attachments',
+    'Employees'
 ]

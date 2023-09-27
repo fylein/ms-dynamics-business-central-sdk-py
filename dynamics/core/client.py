@@ -1,7 +1,7 @@
 import json
 import requests
-from .apis import *
-from .exceptions import *
+from dynamics.apis import *
+from dynamics.exceptions.dynamics_exceptions import *
 
 class Dynamics:
     """
@@ -42,6 +42,7 @@ class Dynamics:
         self.journal_line_items = JournalLineItem()
         self.purchase_invoice_line_items = PurchaseInvoiceLineItems()
         self.attachments = Attachments()
+        self.employees = Employees()
 
         # Get and set the access token
         access_token = self.__refresh_access_token()
@@ -63,7 +64,8 @@ class Dynamics:
             self.journals,
             self.journal_line_items,
             self.purchase_invoice_line_items,
-            self.attachments
+            self.attachments,
+            self.employees
         ]
 
         # Update access tokens in all API instances
@@ -87,7 +89,8 @@ class Dynamics:
             self.journals,
             self.journal_line_items,
             self.purchase_invoice_line_items,
-            self.attachments
+            self.attachments,
+            self.employees
         ]
 
         # Set base URL for all API instances
