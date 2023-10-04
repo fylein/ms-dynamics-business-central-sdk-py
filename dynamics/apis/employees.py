@@ -15,3 +15,11 @@ class Employees(ApiBase):
         return self._get_request({
             **kwargs
         }, Employees.GET_EMPLOYEES)['value']
+    
+    def post(self, data):
+        """
+        Create Employee
+        :param data:
+        :return:
+        """
+        return self._post_request(data, Employees.POST_EMPLOYEES)
