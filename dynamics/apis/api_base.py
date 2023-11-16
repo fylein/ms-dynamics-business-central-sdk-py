@@ -183,3 +183,54 @@ class ApiBase:
 
         else:
             raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
+    
+    def _delete_request(self, params, api_url):
+        """
+        
+        """
+        api_headers = {
+            'Authorization': self.__access_token,
+            'Accept': 'application/json'
+        }
+        api_params = {}
+
+        for k in params:
+            # ignore all unused params
+            if not params[k] is None:
+                p = params[k]
+
+                # convert boolean to lowercase string
+                if isinstance(p, bool):
+                    p = str(p).lower()
+
+                api_params[k] = p
+
+        response = requests.delete(
+            '{0}{1}'.format(self.__server_url, api_url),
+            headers=api_headers,
+            params=api_params
+        )
+
+        if response.status_code == 204:
+            return {'status': 'success'}
+
+        elif response.status_code == 400:
+            raise WrongParamsError('Some of the parameters are wrong', response.text)
+
+        elif response.status_code == 401:
+            raise InvalidTokenError('Invalid token, try to refresh it', response.text)
+
+        elif response.status_code == 403:
+            raise NoPrivilegeError('Forbidden, the user has insufficient privilege', response.text)
+
+        elif response.status_code == 404:
+            raise NotFoundItemError('Not found item with ID', response.text)
+
+        elif response.status_code == 498:
+            raise ExpiredTokenError('Expired token, try to refresh it', response.text)
+
+        elif response.status_code == 500:
+            raise InternalServerError('Internal server error', response.text)
+
+        else:
+            raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
