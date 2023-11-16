@@ -8,6 +8,7 @@ class JournalLineItem(ApiBase):
 
     GET_JOURNAL_LINE_ITEMS = '/journals({0})/journalLines'
     POST_JOURNAL_LINE_ITEMS = '/journals({0})/journalLines'
+    DELETE_JOURNAL_LINE_ITEMS = '/journalLines({0})'
 
     def get_all(self, jounal_id, **kwargs):
         """
@@ -25,3 +26,12 @@ class JournalLineItem(ApiBase):
         :return:
         """
         return self._post_request(data, JournalLineItem.POST_JOURNAL_LINE_ITEMS.format(journal_id))
+    
+    def delete(self, jounral_lineitem_id: str, **kwargs):
+        """
+        Delete Journal Line Item
+        :param jounral_lineitem_id:
+        :param kwargs:
+        :return:
+        """
+        return self._delete_request({**kwargs}, JournalLineItem.DELETE_JOURNAL_LINE_ITEMS.format(jounral_lineitem_id))
