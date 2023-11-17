@@ -4,11 +4,23 @@ from .api_base import ApiBase
 
 
 class JournalLineItem(ApiBase):
-    """Class for PurchaseInvoice APIs."""
+    """Class for Journal LineItem APIs."""
 
     GET_JOURNAL_LINE_ITEMS = '/journals({0})/journalLines'
     POST_JOURNAL_LINE_ITEMS = '/journals({0})/journalLines'
+    BULK_POST_JOURNAL_LINEITEM = 'journals({0})/journalLines'
     DELETE_JOURNAL_LINE_ITEMS = '/journalLines({0})'
+
+    def __init__(self):
+        self.__company_id = None
+
+    def set_company_id(self, company_id):
+        """Set the company id dynamically upon creating a connection
+
+        Parameters:
+            company_id(str): The current company id
+        """
+        self.__company_id = company_id
 
     def get_all(self, jounal_id, **kwargs):
         """
@@ -35,3 +47,34 @@ class JournalLineItem(ApiBase):
         :return:
         """
         return self._delete_request({**kwargs}, JournalLineItem.DELETE_JOURNAL_LINE_ITEMS.format(jounral_lineitem_id))
+
+    def bulk_post(self, journal_id: str, line_items: list, isolation: str = 'snapshot'):
+        """
+        Create Journal LineItems in bulk.
+
+        :param journal_id: The ID of the journal.
+        :param line_items: A list of line items to be added to the journal line items.
+        :param isolation: The isolation level of the bulk post request.
+        :return: Bulk response containing the results of the bulk post operation.
+        """
+        # Prepare payload for bulk post
+        bulk_payload = []
+        for line_item in line_items:
+            # Prepare payload for each line item
+            line_item_payload = {
+                "method": "POST",
+                "url": JournalLineItem.BULK_POST_JOURNAL_LINEITEM.format(journal_id),
+                "headers": {
+                    "CompanyId": self.__company_id,
+                    "Content-Type": "application/json",
+                    "If-Match": "*"
+                },
+                "body": line_item
+            }
+            bulk_payload.append(line_item_payload)
+
+        # Create a bulk payload containing all line item requests
+        bulk_request_payload = {'requests': bulk_payload}
+
+        # Make the bulk post request
+        return self._bulk_post_request(bulk_request_payload, isolation)

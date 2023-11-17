@@ -81,7 +81,8 @@ class Dynamics:
         Set the Company ID in all API objects.
         """
         api_instances = [
-            self.purchase_invoice_line_items
+            self.purchase_invoice_line_items,
+            self.journal_line_items
         ]
 
         # Set company ID for all API instances
