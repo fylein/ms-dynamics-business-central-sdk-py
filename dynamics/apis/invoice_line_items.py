@@ -10,17 +10,6 @@ class PurchaseInvoiceLineItems(ApiBase):
     BULK_POST_PURCHASE_INVOICE_LINEITEM = 'purchaseInvoices({0})/purchaseInvoiceLines'
     DELETE_PURCHASE_INVOICE_LINEITEM = '/purchaseInvoiceLines({0})'
 
-    def __init__(self):
-        self.__company_id = None
-
-    def set_company_id(self, company_id):
-        """Set the company id dynamically upon creating a connection
-
-        Parameters:
-            company_id(str): The current company id
-        """
-        self.__company_id = company_id
-
 
     def get_all(self, purchase_invoice_id: str, **kwargs):
         """
@@ -68,7 +57,7 @@ class PurchaseInvoiceLineItems(ApiBase):
                 "method": "POST",
                 "url": PurchaseInvoiceLineItems.BULK_POST_PURCHASE_INVOICE_LINEITEM.format(purchase_invoice_id),
                 "headers": {
-                    "CompanyId": self.__company_id,
+                    "CompanyId": self.company_id,
                     "Content-Type": "application/json",
                     "If-Match": "*"
                 },

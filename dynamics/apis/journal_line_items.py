@@ -11,17 +11,6 @@ class JournalLineItem(ApiBase):
     BULK_POST_JOURNAL_LINEITEM = 'journals({0})/journalLines'
     DELETE_JOURNAL_LINE_ITEMS = '/journalLines({0})'
 
-    def __init__(self):
-        self.__company_id = None
-
-    def set_company_id(self, company_id):
-        """Set the company id dynamically upon creating a connection
-
-        Parameters:
-            company_id(str): The current company id
-        """
-        self.__company_id = company_id
-
     def get_all(self, jounal_id, **kwargs):
         """
         Get Journal Line Items
@@ -65,7 +54,7 @@ class JournalLineItem(ApiBase):
                 "method": "POST",
                 "url": JournalLineItem.BULK_POST_JOURNAL_LINEITEM.format(journal_id),
                 "headers": {
-                    "CompanyId": self.__company_id,
+                    "CompanyId": self.company_id,
                     "Content-Type": "application/json",
                     "If-Match": "*"
                 },
