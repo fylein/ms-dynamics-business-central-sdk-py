@@ -48,7 +48,6 @@ class ApiBase:
 
         Parameters:
             params (dict): HTTP GET parameters for the wanted API.
-            api_url (str): Url for the wanted API.
 
         Returns:
             A response from the request (dict).
