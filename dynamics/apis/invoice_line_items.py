@@ -51,7 +51,7 @@ class PurchaseInvoiceLineItems(ApiBase):
         """
         return self._delete_request({**kwargs}, PurchaseInvoiceLineItems.DELETE_PURCHASE_INVOICE_LINEITEM.format(purchase_invoice_lineitem_id))
 
-    def create_purchase_invoice_line_items(self, purchase_invoice_id: str, line_items: list):
+    def bulk_post(self, purchase_invoice_id: str, line_items: list, isolation: str = 'snapshot'):
         """
         Create PurchaseInvoice LineItems in bulk.
 
@@ -79,14 +79,7 @@ class PurchaseInvoiceLineItems(ApiBase):
         bulk_request_payload = {'requests': bulk_payload}
 
         # Make the bulk post request
-        bulk_payload_response = self._bulk_post_request(bulk_request_payload)
-
-        # Check the responses for any errors
-        for response in bulk_payload_response['responses']:
-            if response['status'] != 201:
-                # If there's an error, delete the entire purchase invoice and return the response
-                PurchaseInvoices.delete(self, purchase_invoice_id)
-                return response
+        bulk_payload_response = self._bulk_post_request(bulk_request_payload, isolation)
 
         # Return the bulk response if all line items were created successfully
         return bulk_payload_response

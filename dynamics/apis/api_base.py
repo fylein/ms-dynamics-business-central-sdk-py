@@ -243,7 +243,7 @@ class ApiBase:
         else:
             raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
 
-    def _bulk_post_request(self, data):
+    def _bulk_post_request(self, data, isolation: str):
         """Create a HTTP batch request.
 
         Parameters:
@@ -257,7 +257,7 @@ class ApiBase:
         api_headers = {
             'Authorization': self.__access_token,
             'Accept': 'application/json',
-            'Isolation': 'snapshot'
+            'Isolation': isolation
         }
 
         response = requests.post(
