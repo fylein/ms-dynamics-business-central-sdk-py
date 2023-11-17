@@ -17,7 +17,7 @@ class Dynamics:
             client_secret: str,
             environment: str,
             refresh_token: str,
-            company_id: str = None    
+            company_id: str = None
         ):
         """
         Constructor to initialize the Dynamics SDK.
@@ -48,6 +48,8 @@ class Dynamics:
         # Get and set the access token
         access_token = self.__refresh_access_token()
         self.set_server_url()
+        self.set_batch_url()
+        self.set_company_id()
         self.update_access_token(access_token)
 
     def update_access_token(self, access_token: str):
@@ -73,6 +75,43 @@ class Dynamics:
         # Update access tokens in all API instances
         for api in api_instances:
             api.change_access_token(token)
+
+    def set_company_id(self):
+        """
+        Set the Company ID in all API objects.
+        """
+        api_instances = [
+            self.purchase_invoice_line_items
+        ]
+
+        # Set company ID for all API instances
+        for api in api_instances:
+            api.set_company_id(self.__company_id)
+
+    def set_batch_url(self):
+        """
+        Set the Batch URL in all API objects.
+        """
+        batch_url = self.BASE_URL.format(environment=self.__environment)
+
+        batch_url = '{0}{1}'.format(batch_url, '/$batch')
+
+        api_instances = [
+            self.companies,
+            self.vendors,
+            self.accounts,
+            self.purchase_invoices,
+            self.journals,
+            self.journal_line_items,
+            self.purchase_invoice_line_items,
+            self.attachments,
+            self.employees,
+            self.locations
+        ]
+
+        # Set batch URL for all API instances
+        for api in api_instances:
+            api.set_batch_url(batch_url)
 
     def set_server_url(self):
         """
