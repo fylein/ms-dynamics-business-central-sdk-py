@@ -248,7 +248,7 @@ class ApiBase:
 
         Parameters:
             data (dict): HTTP POST body data for the wanted API.
-            api_url (str): Url for the wanted API.
+            isolation: The isolation level for the batch request.
 
         Returns:
             A response from the request (dict).
