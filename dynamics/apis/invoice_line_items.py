@@ -57,6 +57,7 @@ class PurchaseInvoiceLineItems(ApiBase):
 
         :param purchase_invoice_id: The ID of the purchase invoice.
         :param line_items: A list of line items to be added to the purchase invoice.
+        :param isolation: The isolation level of the bulk post request.
         :return: Bulk response containing the results of the bulk post operation.
         """
         # Prepare payload for bulk post
@@ -79,7 +80,4 @@ class PurchaseInvoiceLineItems(ApiBase):
         bulk_request_payload = {'requests': bulk_payload}
 
         # Make the bulk post request
-        bulk_payload_response = self._bulk_post_request(bulk_request_payload, isolation)
-
-        # Return the bulk response if all line items were created successfully
-        return bulk_payload_response
+        return self._bulk_post_request(bulk_request_payload, isolation)
