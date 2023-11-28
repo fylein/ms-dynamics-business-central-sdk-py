@@ -18,6 +18,7 @@ class ApiBase:
         self.__access_token = None
         self.__server_url = None
         self.__batch_url = None
+        self.company_id = None
 
     def change_access_token(self, access_token):
         """Change the old access token with the new one.
@@ -42,6 +43,14 @@ class ApiBase:
             batch_url(str): The current batch URL
         """
         self.__batch_url = batch_url
+
+    def set_company_id(self, company_id):
+        """Set the company id dynamically upon creating a connection
+
+        Parameters:
+            company_id(str): The current company id
+        """
+        self.company_id = company_id
 
     def _get_request(self, params, api_url):
         """Create a HTTP GET request.
