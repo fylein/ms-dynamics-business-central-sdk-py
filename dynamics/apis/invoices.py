@@ -8,6 +8,7 @@ class PurchaseInvoices(ApiBase):
 
     GET_PURCHASE_INVOICES = '/purchaseInvoices'
     POST_PURCHASE_INVOICE = '/purchaseInvoices'
+    DELETE_PURCHASE_INVOICE = '/purchaseInvoices({0})'
 
     def get_all(self, **kwargs):
         """
@@ -25,3 +26,12 @@ class PurchaseInvoices(ApiBase):
         :return:
         """
         return self._post_request(data, PurchaseInvoices.POST_PURCHASE_INVOICE)
+
+    def delete(self, purchase_invoice_id: str, **kwargs):
+        """
+        Delete PurchaseInvoice
+        :param purchase_invoice_id:
+        :param kwargs:
+        :return:
+        """
+        return self._delete_request({**kwargs}, PurchaseInvoices.DELETE_PURCHASE_INVOICE.format(purchase_invoice_id))
