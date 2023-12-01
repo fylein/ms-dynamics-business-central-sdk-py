@@ -17,6 +17,8 @@ class ApiBase:
     def __init__(self):
         self.__access_token = None
         self.__server_url = None
+        self.__batch_url = None
+        self.company_id = None
 
     def change_access_token(self, access_token):
         """Change the old access token with the new one.
@@ -34,12 +36,27 @@ class ApiBase:
         """
         self.__server_url = server_url
 
+    def set_batch_url(self, batch_url):
+        """Set the batch URL dynamically upon creating a connection
+
+        Parameters:
+            batch_url(str): The current batch URL
+        """
+        self.__batch_url = batch_url
+
+    def set_company_id(self, company_id):
+        """Set the company id dynamically upon creating a connection
+
+        Parameters:
+            company_id(str): The current company id
+        """
+        self.company_id = company_id
+
     def _get_request(self, params, api_url):
         """Create a HTTP GET request.
 
         Parameters:
             params (dict): HTTP GET parameters for the wanted API.
-            api_url (str): Url for the wanted API.
 
         Returns:
             A response from the request (dict).
@@ -162,6 +179,105 @@ class ApiBase:
 
         if response.status_code == 200 or response.status_code == 201 or response.status_code == 204:
             return
+
+        elif response.status_code == 400:
+            raise WrongParamsError('Some of the parameters are wrong', response.text)
+
+        elif response.status_code == 401:
+            raise InvalidTokenError('Invalid token, try to refresh it', response.text)
+
+        elif response.status_code == 403:
+            raise NoPrivilegeError('Forbidden, the user has insufficient privilege', response.text)
+
+        elif response.status_code == 404:
+            raise NotFoundItemError('Not found item with ID', response.text)
+
+        elif response.status_code == 498:
+            raise ExpiredTokenError('Expired token, try to refresh it', response.text)
+
+        elif response.status_code == 500:
+            raise InternalServerError('Internal server error', response.text)
+
+        else:
+            raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
+    
+    def _delete_request(self, params, api_url):
+        """
+        
+        """
+        api_headers = {
+            'Authorization': self.__access_token,
+            'Accept': 'application/json'
+        }
+        api_params = {}
+
+        for k in params:
+            # ignore all unused params
+            if not params[k] is None:
+                p = params[k]
+
+                # convert boolean to lowercase string
+                if isinstance(p, bool):
+                    p = str(p).lower()
+
+                api_params[k] = p
+
+        response = requests.delete(
+            '{0}{1}'.format(self.__server_url, api_url),
+            headers=api_headers,
+            params=api_params
+        )
+
+        if response.status_code == 204:
+            return {'status': 'success'}
+
+        elif response.status_code == 400:
+            raise WrongParamsError('Some of the parameters are wrong', response.text)
+
+        elif response.status_code == 401:
+            raise InvalidTokenError('Invalid token, try to refresh it', response.text)
+
+        elif response.status_code == 403:
+            raise NoPrivilegeError('Forbidden, the user has insufficient privilege', response.text)
+
+        elif response.status_code == 404:
+            raise NotFoundItemError('Not found item with ID', response.text)
+
+        elif response.status_code == 498:
+            raise ExpiredTokenError('Expired token, try to refresh it', response.text)
+
+        elif response.status_code == 500:
+            raise InternalServerError('Internal server error', response.text)
+
+        else:
+            raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
+
+    def _bulk_post_request(self, data, isolation: str):
+        """Create a HTTP batch request.
+
+        Parameters:
+            data (dict): HTTP POST body data for the wanted API.
+            isolation: The isolation level for the batch request.
+
+        Returns:
+            A response from the request (dict).
+        """
+
+        api_headers = {
+            'Authorization': self.__access_token,
+            'Accept': 'application/json',
+            'Isolation': isolation
+        }
+
+        response = requests.post(
+            '{0}'.format(self.__batch_url),
+            headers=api_headers,
+            json=data
+        )
+
+        if response.status_code == 200 or response.status_code == 201:
+            result = json.loads(response.text)
+            return result
 
         elif response.status_code == 400:
             raise WrongParamsError('Some of the parameters are wrong', response.text)

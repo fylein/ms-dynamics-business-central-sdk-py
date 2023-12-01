@@ -8,6 +8,7 @@ class Journals(ApiBase):
 
     GET_JOURNALS = '/journals'
     POST_JOURNALS = '/journals'
+    DELETE_JOURNALS = '/journals({0})'
 
     def get_all(self, **kwargs):
         """
@@ -25,3 +26,12 @@ class Journals(ApiBase):
         :return:
         """
         return self._post_request(data, Journals.POST_JOURNALS)
+    
+    def delete(self, journal_id: str, **kwargs):
+        """
+        Delete Journals
+        :param journal_id:
+        :param kwargs:
+        :return:
+        """
+        return self._delete_request({**kwargs}, Journals.DELETE_JOURNALS.format(journal_id))
