@@ -147,4 +147,4 @@ class Dynamics:
         Get the refresh_token property.
         :return: Refresh token
         """
-        return self._refresh_token
+        return self.__refresh_token
