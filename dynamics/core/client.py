@@ -49,7 +49,6 @@ class Dynamics:
         access_token = self.__refresh_access_token()
         self.set_server_url()
         self.set_batch_url()
-        self.set_company_id()
         self.update_access_token(access_token)
 
     def update_access_token(self, access_token: str):
@@ -76,7 +75,7 @@ class Dynamics:
         for api in api_instances:
             api.change_access_token(token)
 
-    def set_company_id(self):
+    def set_company_id(self, company_id: str):
         """
         Set the Company ID in all API objects.
         """
@@ -87,7 +86,7 @@ class Dynamics:
 
         # Set company ID for all API instances
         for api in api_instances:
-            api.set_company_id(self.__company_id)
+            api.set_company_id(company_id)
 
     def set_batch_url(self):
         """
