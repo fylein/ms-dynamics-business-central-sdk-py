@@ -8,7 +8,7 @@ class Attachments(ApiBase):
 
     GET_ATTACHMENTS = '/attachments?$filter=parentId eq {}'
     POST_ATTACHMENT = '/attachments'
-    UPLOAD_ATTACHMENT = '/attachments(parentId={0},id={1})/content'
+    UPLOAD_ATTACHMENT = '/attachments({0})/attachmentContent'
 
     def get_all(self, parent_id: str):
         """
@@ -25,7 +25,7 @@ class Attachments(ApiBase):
         """
         return self._post_request(data, Attachments.POST_ATTACHMENT)
 
-    def upload(self, parent_id: str, attachment_id: str, content_type: str, data: BinaryIO):
+    def upload(self, attachment_id: str, content_type: str, data: BinaryIO):
         """
         Upload attachment to Business Central
         :param parent_id: id of the object the file is to be attached to
@@ -34,4 +34,4 @@ class Attachments(ApiBase):
         :param data: Base 64 encoded data
         :return: None
         """
-        self._patch_request(content_type, data, self.UPLOAD_ATTACHMENT.format(parent_id, attachment_id))
+        return self._patch_request(content_type, data, self.UPLOAD_ATTACHMENT.format(attachment_id))

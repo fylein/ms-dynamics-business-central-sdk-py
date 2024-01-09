@@ -178,7 +178,7 @@ class ApiBase:
         )
 
         if response.status_code == 200 or response.status_code == 201 or response.status_code == 204:
-            return
+            return {'status': 'success'}
 
         elif response.status_code == 400:
             raise WrongParamsError('Some of the parameters are wrong', response.text)
