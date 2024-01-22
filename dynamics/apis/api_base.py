@@ -283,7 +283,7 @@ class ApiBase:
 
             if error_messages:
                 if purchase_invoice_id: self._delete_request({}, '/purchaseInvoices({0})'.format(purchase_invoice_id))
-                raise WrongParamsError(error_messages)
+                raise WrongParamsError('Some of the parameters are wrong', error_messages)
             return result
 
         elif response.status_code == 400:
