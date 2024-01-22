@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='ms-dynamics-business-central-sdk',
-    version='1.3.3',
+    version='1.3.2',
     author='Shwetabh Kumar',
     author_email='shwetabh.kumar@fyle.in',
     description='Python SDK for accessing Dynamics APIs',

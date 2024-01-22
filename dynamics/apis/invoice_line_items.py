@@ -69,4 +69,4 @@ class PurchaseInvoiceLineItems(ApiBase):
         bulk_request_payload = {'requests': bulk_payload}
 
         # Make the bulk post request
-        return self._bulk_post_request(bulk_request_payload, isolation)
+        return self._bulk_post_request(bulk_request_payload, isolation, purchase_invoice_id)
