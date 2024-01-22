@@ -252,7 +252,7 @@ class ApiBase:
         else:
             raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
 
-    def _bulk_post_request(self, data, isolation: str):
+    def _bulk_post_request(self, data, isolation: str, purchase_invoice_id: str = None):
         """Create a HTTP batch request.
 
         Parameters:
@@ -277,6 +277,13 @@ class ApiBase:
 
         if response.status_code == 200 or response.status_code == 201:
             result = json.loads(response.text)
+
+            error_messages = [resp.get("body", {}).get("error", {}).get("message", None) for resp in result.get("responses", []) if resp.get("status", None) == 400]
+            error_messages = [message for message in error_messages if message is not None]
+
+            if error_messages:
+                if purchase_invoice_id: self._delete_request({}, '/purchaseInvoices({0})'.format(purchase_invoice_id))
+                raise WrongParamsError('Some of the parameters are wrong', error_messages)
             return result
 
         elif response.status_code == 400:
