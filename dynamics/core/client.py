@@ -75,19 +75,6 @@ class Dynamics:
         for api in api_instances:
             api.change_access_token(token)
 
-    def set_company_id(self, company_id: str):
-        """
-        Set the Company ID in all API objects.
-        """
-        api_instances = [
-            self.purchase_invoice_line_items,
-            self.journal_line_items
-        ]
-
-        # Set company ID for all API instances
-        for api in api_instances:
-            api.set_company_id(company_id)
-
     def set_batch_url(self):
         """
         Set the Batch URL in all API objects.
