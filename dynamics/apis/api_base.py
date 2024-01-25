@@ -18,7 +18,6 @@ class ApiBase:
         self.__access_token = None
         self.__server_url = None
         self.__batch_url = None
-        self.company_id = None
 
     def change_access_token(self, access_token):
         """Change the old access token with the new one.
@@ -43,14 +42,6 @@ class ApiBase:
             batch_url(str): The current batch URL
         """
         self.__batch_url = batch_url
-
-    def set_company_id(self, company_id):
-        """Set the company id dynamically upon creating a connection
-
-        Parameters:
-            company_id(str): The current company id
-        """
-        self.company_id = company_id
 
     def _get_request(self, params, api_url):
         """Create a HTTP GET request.
@@ -252,7 +243,7 @@ class ApiBase:
         else:
             raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
 
-    def _bulk_post_request(self, data, isolation: str, purchase_invoice_id: str = None):
+    def _bulk_post_request(self, data, isolation: str, company_id: str = None, purchase_invoice_id: str = None):
         """Create a HTTP batch request.
 
         Parameters:
@@ -262,6 +253,8 @@ class ApiBase:
         Returns:
             A response from the request (dict).
         """
+        if company_id:
+            self.__batch_url = f'{self.__batch_url}?company={company_id}'
 
         api_headers = {
             'Authorization': self.__access_token,

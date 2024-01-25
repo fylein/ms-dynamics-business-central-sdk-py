@@ -37,12 +37,13 @@ class JournalLineItem(ApiBase):
         """
         return self._delete_request({**kwargs}, JournalLineItem.DELETE_JOURNAL_LINE_ITEMS.format(jounral_lineitem_id))
 
-    def bulk_post(self, journal_id: str, line_items: list, isolation: str = 'snapshot'):
+    def bulk_post(self, journal_id: str, line_items: list, company_id: str, isolation: str = 'snapshot'):
         """
         Create Journal LineItems in bulk.
 
         :param journal_id: The ID of the journal.
         :param line_items: A list of line items to be added to the journal line items.
+        :param company_id: The ID of the company. (batch requests mandatorily need this)
         :param isolation: The isolation level of the bulk post request.
         :return: Bulk response containing the results of the bulk post operation.
         """
@@ -54,7 +55,7 @@ class JournalLineItem(ApiBase):
                 "method": "POST",
                 "url": JournalLineItem.BULK_POST_JOURNAL_LINEITEM.format(journal_id),
                 "headers": {
-                    "CompanyId": self.company_id,
+                    "CompanyId": company_id,
                     "Content-Type": "application/json",
                     "If-Match": "*"
                 },
@@ -66,4 +67,8 @@ class JournalLineItem(ApiBase):
         bulk_request_payload = {'requests': bulk_payload}
 
         # Make the bulk post request
-        return self._bulk_post_request(bulk_request_payload, isolation)
+        return self._bulk_post_request(
+            data=bulk_request_payload,
+            isolation=isolation,
+            company_id=company_id
+        )
