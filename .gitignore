@@ -11,6 +11,7 @@ __pycache__/
 
 # Mock Files
 dry_run.py
+test.py
 
 # Distribution / packaging
 .Python

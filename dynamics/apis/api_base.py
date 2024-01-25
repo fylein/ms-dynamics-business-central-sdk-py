@@ -271,7 +271,7 @@ class ApiBase:
         if response.status_code == 200 or response.status_code == 201:
             result = json.loads(response.text)
 
-            error_messages = [resp.get("body", {}).get("error", {}).get("message", None) for resp in result.get("responses", []) if resp.get("status", None) == 400]
+            error_messages = [resp.get('body', {}).get('error', {}).get('message', None) for resp in result.get('responses', []) if 400 <= resp.get('status', 0) < 500]
             error_messages = [message for message in error_messages if message is not None]
 
             if error_messages:
