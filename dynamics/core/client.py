@@ -106,11 +106,12 @@ class Dynamics:
         """
         base_url = self.BASE_URL.format(environment=self.__environment)
 
+        self.companies.set_server_url(self.BASE_URL.format(environment=self.__environment))
+
         if self.__company_id:
             base_url = '{0}{1}'.format(base_url, '/companies({0})'.format(self.__company_id))
 
         api_instances = [
-            self.companies,
             self.vendors,
             self.accounts,
             self.purchase_invoices,
