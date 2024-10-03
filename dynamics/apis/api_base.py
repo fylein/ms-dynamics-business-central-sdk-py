@@ -75,8 +75,13 @@ class ApiBase:
             headers=api_headers,
             params=api_params
         )
-
+        
         if response.status_code == 200 or response.status_code == 201:
+            raw_content = response.content
+            if raw_content.startswith(b'\xef\xbb\xbf'):
+                response_content = raw_content.decode('utf-8-sig')
+                return {'value': response_content}
+            
             result = json.loads(response.text)
             return result
 

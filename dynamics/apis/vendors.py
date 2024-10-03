@@ -6,6 +6,8 @@ class Vendors(ApiBase):
 
     GET_VENDORS = '/vendors'
     POST_VENDOR = '/vendors'
+    COUNT_VENDOR = "/vendors/$count"
+
 
     def get_all(self, **kwargs):
         """
@@ -23,3 +25,12 @@ class Vendors(ApiBase):
         :return:
         """
         return self._post_request(data, Vendors.POST_VENDOR)
+
+    def count(self, **kwargs):
+        """
+        Get counts of accounts
+        :return: Count in Int
+        """
+        return self._get_request({
+            **kwargs
+        }, Vendors.COUNT_VENDOR)['value'] 

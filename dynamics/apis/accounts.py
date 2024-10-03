@@ -6,6 +6,7 @@ class Accounts(ApiBase):
 
     GET_ACCOUNTS = '/accounts'
     POST_ACCOUNT = '/accounts'
+    COUNT_ACCOUNT = "/accounts/$count"
 
     def get_all(self, **kwargs):
         """
@@ -15,3 +16,13 @@ class Accounts(ApiBase):
         return self._get_request({
             **kwargs
         }, Accounts.GET_ACCOUNTS)['value']
+
+    def count(self, **kwargs):
+        """
+        Get counts of accounts
+        :return: Count in Int
+        """
+        return self._get_request({
+            **kwargs
+        }, Accounts.COUNT_ACCOUNT)['value']
+    
