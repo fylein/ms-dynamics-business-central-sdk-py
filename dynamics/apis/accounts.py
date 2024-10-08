@@ -22,7 +22,7 @@ class Accounts(ApiBase):
         Get counts of accounts
         :return: Count in Int
         """
-        return self._get_request({
+        return self._get_request_for_count({
             **kwargs
         }, Accounts.COUNT_ACCOUNT)['value']
     

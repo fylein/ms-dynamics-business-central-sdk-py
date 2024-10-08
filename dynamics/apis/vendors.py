@@ -31,6 +31,6 @@ class Vendors(ApiBase):
         Get counts of accounts
         :return: Count in Int
         """
-        return self._get_request({
+        return self._get_request_for_count({
             **kwargs
-        }, Vendors.COUNT_VENDOR)['value'] 
+        }, Vendors.COUNT_VENDOR)['value']
