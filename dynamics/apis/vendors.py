@@ -28,7 +28,7 @@ class Vendors(ApiBase):
 
     def count(self, **kwargs):
         """
-        Get counts of accounts
+        Get counts of vendors
         :return: Count in Int
         """
         return self._get_request_for_count({
