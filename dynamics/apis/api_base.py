@@ -1,3 +1,4 @@
+import logging
 from dynamics.exceptions.dynamics_exceptions import (
     DynamicsError,
     ExpiredTokenError,
@@ -10,6 +11,8 @@ from dynamics.exceptions.dynamics_exceptions import (
 import requests
 import json
 
+
+logger = logging.getLogger(__name__)
 
 class ApiBase:
     """The base class for all API classes."""
@@ -75,27 +78,30 @@ class ApiBase:
             headers=api_headers,
             params=api_params
         )
-        
+
         if response.status_code == 200 or response.status_code == 201:
+            logger.debug('Response for get request for url: %s, %s', api_url, response.text)
             result = json.loads(response.text)
             return result
+        
 
-        elif response.status_code == 400:
+        logger.info('Response for get request for url: %s, %s', api_url, response.text)
+        if response.status_code == 400:
             raise WrongParamsError('Some of the parameters are wrong', response.text)
 
-        elif response.status_code == 401:
+        if response.status_code == 401:
             raise InvalidTokenError('Invalid token, try to refresh it', response.text)
 
-        elif response.status_code == 403:
+        if response.status_code == 403:
             raise NoPrivilegeError('Forbidden, the user has insufficient privilege', response.text)
 
-        elif response.status_code == 404:
+        if response.status_code == 404:
             raise NotFoundItemError('Not found item with ID', response.text)
 
-        elif response.status_code == 498:
+        if response.status_code == 498:
             raise ExpiredTokenError('Expired token, try to refresh it', response.text)
 
-        elif response.status_code == 500:
+        if response.status_code == 500:
             raise InternalServerError('Internal server error', response.text)
 
         else:
@@ -180,30 +186,33 @@ class ApiBase:
             headers=api_headers,
             json=data
         )
+        logger.debug('Payload for post request: %s', data)
+
         if response.status_code == 200 or response.status_code == 201:
+            logger.debug('Response for post request: %s', response.text)
             result = json.loads(response.text)
             return result
 
-        elif response.status_code == 400:
+        logger.info('Response for post request: %s', response.text)
+        if response.status_code == 400:
             raise WrongParamsError('Some of the parameters are wrong', response.text)
 
-        elif response.status_code == 401:
+        if response.status_code == 401:
             raise InvalidTokenError('Invalid token, try to refresh it', response.text)
 
-        elif response.status_code == 403:
+        if response.status_code == 403:
             raise NoPrivilegeError('Forbidden, the user has insufficient privilege', response.text)
 
-        elif response.status_code == 404:
+        if response.status_code == 404:
             raise NotFoundItemError('Not found item with ID', response.text)
 
-        elif response.status_code == 498:
+        if response.status_code == 498:
             raise ExpiredTokenError('Expired token, try to refresh it', response.text)
 
-        elif response.status_code == 500:
+        if response.status_code == 500:
             raise InternalServerError('Internal server error', response.text)
 
-        else:
-            raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
+        raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
 
     def _patch_request(self, content_type, data, api_url):
         """Create a HTTP patch request.
@@ -227,29 +236,32 @@ class ApiBase:
             data=data
         )
 
+        logger.debug('Payload for patch request: %s', data)
+
         if response.status_code == 200 or response.status_code == 201 or response.status_code == 204:
+            logger.debug('Response for patch request: %s', response.text)
             return {'status': 'success'}
 
-        elif response.status_code == 400:
+        logger.info('Response for patch request: %s', response.text)
+        if response.status_code == 400:
             raise WrongParamsError('Some of the parameters are wrong', response.text)
 
-        elif response.status_code == 401:
+        if response.status_code == 401:
             raise InvalidTokenError('Invalid token, try to refresh it', response.text)
 
-        elif response.status_code == 403:
+        if response.status_code == 403:
             raise NoPrivilegeError('Forbidden, the user has insufficient privilege', response.text)
 
-        elif response.status_code == 404:
+        if response.status_code == 404:
             raise NotFoundItemError('Not found item with ID', response.text)
 
-        elif response.status_code == 498:
+        if response.status_code == 498:
             raise ExpiredTokenError('Expired token, try to refresh it', response.text)
 
-        elif response.status_code == 500:
+        if response.status_code == 500:
             raise InternalServerError('Internal server error', response.text)
 
-        else:
-            raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
+        raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
     
     def _delete_request(self, params, api_url):
         """
@@ -279,28 +291,29 @@ class ApiBase:
         )
 
         if response.status_code == 204:
+            logger.debug('Response for delete request for url: %s, %s', api_url, response.text)
             return {'status': 'success'}
 
-        elif response.status_code == 400:
+        logger.info('Response for delete request for url: %s, %s', api_url, response.text)
+        if response.status_code == 400:
             raise WrongParamsError('Some of the parameters are wrong', response.text)
 
-        elif response.status_code == 401:
+        if response.status_code == 401:
             raise InvalidTokenError('Invalid token, try to refresh it', response.text)
 
-        elif response.status_code == 403:
+        if response.status_code == 403:
             raise NoPrivilegeError('Forbidden, the user has insufficient privilege', response.text)
 
-        elif response.status_code == 404:
+        if response.status_code == 404:
             raise NotFoundItemError('Not found item with ID', response.text)
 
-        elif response.status_code == 498:
+        if response.status_code == 498:
             raise ExpiredTokenError('Expired token, try to refresh it', response.text)
 
-        elif response.status_code == 500:
+        if response.status_code == 500:
             raise InternalServerError('Internal server error', response.text)
 
-        else:
-            raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
+        raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
 
     def _bulk_post_request(self, data, isolation: str, company_id: str = None, purchase_invoice_id: str = None):
         """Create a HTTP batch request.
@@ -327,7 +340,10 @@ class ApiBase:
             json=data
         )
 
+        logger.debug('Payload for post request: %s', data)
+
         if response.status_code == 200 or response.status_code == 201:
+            logger.debug('Response for post request: %s', response.text)
             result = json.loads(response.text)
 
             error_messages = [resp.get('body', {}).get('error', {}).get('message', None) for resp in result.get('responses', []) if 400 <= resp.get('status', 0) < 500]
@@ -338,23 +354,23 @@ class ApiBase:
                 raise WrongParamsError('Some of the parameters are wrong', error_messages)
             return result
 
-        elif response.status_code == 400:
+        logger.info('Response for post request: %s', response.text)
+        if response.status_code == 400:
             raise WrongParamsError('Some of the parameters are wrong', response.text)
 
-        elif response.status_code == 401:
+        if response.status_code == 401:
             raise InvalidTokenError('Invalid token, try to refresh it', response.text)
 
-        elif response.status_code == 403:
+        if response.status_code == 403:
             raise NoPrivilegeError('Forbidden, the user has insufficient privilege', response.text)
 
-        elif response.status_code == 404:
+        if response.status_code == 404:
             raise NotFoundItemError('Not found item with ID', response.text)
 
-        elif response.status_code == 498:
+        if response.status_code == 498:
             raise ExpiredTokenError('Expired token, try to refresh it', response.text)
 
-        elif response.status_code == 500:
+        if response.status_code == 500:
             raise InternalServerError('Internal server error', response.text)
 
-        else:
-            raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
+        raise DynamicsError('Error: {0}'.format(response.status_code), response.text)
