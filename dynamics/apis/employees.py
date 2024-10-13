@@ -6,6 +6,7 @@ class Employees(ApiBase):
 
     GET_EMPLOYEES = '/employees'
     POST_EMPLOYEES = '/employees'
+    COUNT_EMPLOYEES = '/employees/$count'
 
     def get_all(self, **kwargs):
         """
@@ -23,3 +24,12 @@ class Employees(ApiBase):
         :return:
         """
         return self._post_request(data, Employees.POST_EMPLOYEES)
+
+    def count(self, **kwargs):
+        """
+        Get counts of employees
+        :return: Count in Int
+        """
+        return self._get_request_for_count({
+            **kwargs
+        }, Employees.COUNT_EMPLOYEES)['value']
