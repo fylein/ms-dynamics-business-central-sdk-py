@@ -6,6 +6,7 @@ class Locations(ApiBase):
 
     GET_LOCATIONS = '/locations'
     POST_LOCATIONS = '/locations'
+    COUNT_LOCATIONS = '/locations/$count'
 
     def get_all(self, **kwargs):
         """
@@ -15,3 +16,12 @@ class Locations(ApiBase):
         return self._get_request({
             **kwargs
         }, Locations.GET_LOCATIONS)['value']
+
+    def count(self, **kwargs):
+        """
+        Get counts of locations
+        :return: Count in Int
+        """
+        return self._get_request_for_count({
+            **kwargs
+        }, Locations.COUNT_LOCATIONS)['value']
