@@ -14,6 +14,7 @@ import json
 
 logger = logging.getLogger(__name__)
 
+
 class ApiBase:
     """The base class for all API classes."""
 
@@ -142,7 +143,8 @@ class ApiBase:
         
         if response.status_code == 200 or response.status_code == 201:
             raw_content = response.content
-            result = raw_content.decode('utf-8')
+            result = raw_content.decode('utf-8-sig')
+            result = int(result)
             return {"value": result}
 
         elif response.status_code == 400:
