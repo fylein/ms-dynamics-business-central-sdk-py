@@ -143,8 +143,7 @@ class ApiBase:
         
         if response.status_code == 200 or response.status_code == 201:
             raw_content = response.content
-            result = raw_content.decode('utf-8')
-            result = result.lstrip('\ufeff')
+            result = raw_content.decode('utf-8-sig')
             result = int(result)
             return {"value": result}
 
