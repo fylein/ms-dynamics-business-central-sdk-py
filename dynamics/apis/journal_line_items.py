@@ -74,7 +74,7 @@ class JournalLineItem(ApiBase):
             company_id=company_id
         )
 
-    def post_journal_entry(self, journal_line_item_id: str, data: dict):
+    def post_journal_entry_dimensions(self, journal_line_item_id: str, data: dict):
         """
         Create dimension set line for a journal line item
         Parameters:

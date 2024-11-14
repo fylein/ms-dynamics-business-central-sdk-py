@@ -79,7 +79,7 @@ class PurchaseInvoiceLineItems(ApiBase):
             company_id=company_id
         )
 
-    def post_purchase_invoice(self, purchase_invoice_item_id: str, data: dict):
+    def post_purchase_invoice_dimensions(self, purchase_invoice_item_id: str, data: dict):
         """
         Create dimension set line for a purchase invoice item
         Parameters:
