@@ -44,6 +44,10 @@ class Dynamics:
         self.attachments = Attachments()
         self.employees = Employees()
         self.locations = Locations()
+        self.dimensions = Dimensions()
+        self.dimension_values = DimensionValues()
+        self.bank_accounts = BankAccounts()
+        self.dimension_set_lines = DimensionSetLines()
 
         # Get and set the access token
         access_token = self.__refresh_access_token()
@@ -68,7 +72,11 @@ class Dynamics:
             self.purchase_invoice_line_items,
             self.attachments,
             self.employees,
-            self.locations
+            self.locations,
+            self.dimensions,
+            self.dimension_values,
+            self.bank_accounts,
+            self.dimension_set_lines
         ]
 
         # Update access tokens in all API instances
@@ -93,7 +101,11 @@ class Dynamics:
             self.purchase_invoice_line_items,
             self.attachments,
             self.employees,
-            self.locations
+            self.locations,
+            self.dimensions,
+            self.dimension_values,
+            self.bank_accounts,
+            self.dimension_set_lines
         ]
 
         # Set batch URL for all API instances
@@ -120,7 +132,11 @@ class Dynamics:
             self.purchase_invoice_line_items,
             self.attachments,
             self.employees,
-            self.locations
+            self.locations,
+            self.dimensions,
+            self.dimension_values,
+            self.bank_accounts,
+            self.dimension_set_lines
         ]
 
         # Set base URL for all API instances

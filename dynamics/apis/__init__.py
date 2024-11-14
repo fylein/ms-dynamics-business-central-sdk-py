@@ -8,6 +8,10 @@ from .invoice_line_items import PurchaseInvoiceLineItems
 from .attachments import Attachments
 from .employees import Employees
 from .locations import Locations
+from .dimensions import Dimensions
+from .dimension_values import DimensionValues
+from .bank_accounts import BankAccounts
+from .dimension_set_lines import DimensionSetLines
 
 __all__ = [
     'Companies',
@@ -19,5 +23,9 @@ __all__ = [
     'PurchaseInvoiceLineItems',
     'Attachments',
     'Employees',
-    'Locations'
+    'Locations',
+    'Dimensions',
+    'DimensionValues',
+    'BankAccounts',
+    'DimensionSetLines'
 ]
