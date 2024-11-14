@@ -9,6 +9,7 @@ class PurchaseInvoiceLineItems(ApiBase):
     POST_PURCHASE_INVOICE_LINEITEM = '/purchaseInvoices({0})/purchaseInvoiceLines'
     BULK_POST_PURCHASE_INVOICE_LINEITEM = 'purchaseInvoices({0})/purchaseInvoiceLines'
     DELETE_PURCHASE_INVOICE_LINEITEM = '/purchaseInvoiceLines({0})'
+    PURCHASE_INVOICE_SET_DIMENSION = '/purchaseInvoiceLines({0})/dimensionSetLines'
 
 
     def get_all(self, purchase_invoice_id: str, **kwargs):
@@ -76,4 +77,17 @@ class PurchaseInvoiceLineItems(ApiBase):
             isolation=isolation,
             purchase_invoice_id=purchase_invoice_id,
             company_id=company_id
+        )
+
+    def post_purchase_invoice(self, purchase_invoice_item_id: str, data: dict):
+        """
+        Create dimension set line for a purchase invoice item
+        Parameters:
+            purchase_invoice_item_id: Id of the Purchase Invoice Item (str)
+            data: Payload to be posted (dict)
+        :return:
+        """
+        
+        return self._post_request(
+            data, PurchaseInvoiceLineItems.PURCHASE_INVOICE_SET_DIMENSION.format(purchase_invoice_item_id)
         )
