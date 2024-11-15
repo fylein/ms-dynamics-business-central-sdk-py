@@ -10,6 +10,7 @@ class JournalLineItem(ApiBase):
     POST_JOURNAL_LINE_ITEMS = '/journals({0})/journalLines'
     BULK_POST_JOURNAL_LINEITEM = 'journals({0})/journalLines'
     DELETE_JOURNAL_LINE_ITEMS = '/journalLines({0})'
+    JOUNRAL_ENTRY_SET_DIMENSION = '/journalLines({0})/dimensionSetLines'
 
     def get_all(self, jounal_id, **kwargs):
         """
@@ -71,4 +72,16 @@ class JournalLineItem(ApiBase):
             data=bulk_request_payload,
             isolation=isolation,
             company_id=company_id
+        )
+
+    def post_journal_entry_dimensions(self, journal_line_item_id: str, data: dict):
+        """
+        Create dimension set line for a journal line item
+        Parameters:
+            journal_line_item_id: Id of the Journal Line Item (str)
+            data: Payload to be posted (dict)
+        """
+        
+        return self._post_request(
+            data, JournalLineItem.JOUNRAL_ENTRY_SET_DIMENSION.format(journal_line_item_id)
         )

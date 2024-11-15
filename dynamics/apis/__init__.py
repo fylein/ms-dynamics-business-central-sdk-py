@@ -8,6 +8,8 @@ from .invoice_line_items import PurchaseInvoiceLineItems
 from .attachments import Attachments
 from .employees import Employees
 from .locations import Locations
+from .dimensions import Dimensions
+from .bank_accounts import BankAccounts
 
 __all__ = [
     'Companies',
@@ -19,5 +21,7 @@ __all__ = [
     'PurchaseInvoiceLineItems',
     'Attachments',
     'Employees',
-    'Locations'
+    'Locations',
+    'Dimensions',
+    'BankAccounts',
 ]
