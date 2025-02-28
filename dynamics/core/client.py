@@ -10,7 +10,7 @@ class Dynamics:
 
     TOKEN_URL = 'https://login.microsoftonline.com/organizations/oauth2/v2.0/token?resource=https://api.businesscentral.dynamics.com'
     BASE_URL = 'https://api.businesscentral.dynamics.com/v2.0/{environment}/api/v2.0'
-    ENVIRONMENT_URL = 'https://api.businesscentral.dynamics.com'
+    API_URL = 'https://api.businesscentral.dynamics.com'
 
     def __init__(
             self,
@@ -115,7 +115,7 @@ class Dynamics:
         """
         base_url = self.BASE_URL.format(environment=self.__environment)
 
-        self.environments.set_server_url(self.ENVIRONMENT_URL)
+        self.environments.set_server_url(self.API_URL)
 
         self.companies.set_server_url(self.BASE_URL.format(environment=self.__environment))
 
@@ -164,7 +164,6 @@ class Dynamics:
         if response.status_code == 200:
             token = json.loads(response.text)
             self._refresh_token = token['refresh_token']
-            print('access_token', token['access_token'])
             return token['access_token']
 
         elif response.status_code == 400:
