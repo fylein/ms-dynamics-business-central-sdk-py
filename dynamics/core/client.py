@@ -10,13 +10,14 @@ class Dynamics:
 
     TOKEN_URL = 'https://login.microsoftonline.com/organizations/oauth2/v2.0/token?resource=https://api.businesscentral.dynamics.com'
     BASE_URL = 'https://api.businesscentral.dynamics.com/v2.0/{environment}/api/v2.0'
+    API_URL = 'https://api.businesscentral.dynamics.com'
 
     def __init__(
             self,
             client_id: str,
             client_secret: str,
-            environment: str,
             refresh_token: str,
+            environment: str = None,
             company_id: str = None
         ):
         """
@@ -35,6 +36,7 @@ class Dynamics:
 
         # Initialize API instances
         self.companies = Companies()
+        self.environments = Environments()
         self.vendors = Vendors()
         self.accounts = Accounts()
         self.purchase_invoices = PurchaseInvoices()
@@ -62,6 +64,7 @@ class Dynamics:
 
         api_instances = [
             self.companies,
+            self.environments,
             self.vendors,
             self.accounts,
             self.purchase_invoices,
@@ -111,6 +114,8 @@ class Dynamics:
         Set the Base URL in all API objects.
         """
         base_url = self.BASE_URL.format(environment=self.__environment)
+
+        self.environments.set_server_url(self.API_URL)
 
         self.companies.set_server_url(self.BASE_URL.format(environment=self.__environment))
 
