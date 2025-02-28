@@ -1,4 +1,5 @@
 from .companies import Companies
+from .environments import Environments
 from .vendors import Vendors
 from .accounts import Accounts
 from .invoices import PurchaseInvoices
@@ -13,6 +14,7 @@ from .bank_accounts import BankAccounts
 
 __all__ = [
     'Companies',
+    'Environments',
     'Vendors',
     'Accounts',
     'PurchaseInvoices',
